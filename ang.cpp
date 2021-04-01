@@ -7,6 +7,7 @@ static const std::string configFile="../conf/config.txt";
 
 int main(){
     config host(configFile);
-    std::cout<<host.getHost();
+    if(!host.empty())
+        std::cout<<host.getPort();
     return 0;
 }
