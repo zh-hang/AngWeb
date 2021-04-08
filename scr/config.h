@@ -38,7 +38,7 @@ public:
                     value.push_back(data[i]);
                 i++;
             }
-            std::cout<<key<<" "<<value<<'\n';
+            std::cout<<key<<":"<<value<<'\n';
             configData.insert(std::pair<std::string, std::string>(key, value));
         }
     }
