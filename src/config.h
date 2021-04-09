@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sys/socket.h>
 
 #define MAXLINE 256
 
@@ -50,6 +51,12 @@ public:
     std::string getPort()
     {
         return configData.at("port");
+    }
+    int getDomain(){
+        if(configData.find("domain")==configData.end()||configData.at("domain")=="ipv4")
+            return PF_INET;
+        if(configData.at("domain")=="ipv6")
+            return PF_INET6;
     }
     bool empty(){
         return configData.empty();
