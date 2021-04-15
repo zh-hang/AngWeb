@@ -1,3 +1,0 @@
-host=139.9.202.175
-port=80
-domain=ipv6
