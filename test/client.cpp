@@ -11,6 +11,7 @@
 
 int main(int argc, char **argv)
 {
+<<<<<<< HEAD
     int client_sock, len;
     struct sockaddr_in dest;
     char buffer[MAXBUF];
@@ -60,5 +61,19 @@ int main(int argc, char **argv)
  
     /* 关闭连接 */
     close(client_sock);
+=======
+    std::string address=argv[1];
+    int port=argv[2];
+    Socket socket(address, port, wings::SOCKET_TYPE::IPV4);
+    for (int i = 0; i < 10; ++i) {
+        socket.write("This is Client4 Message.");
+        char *reply = new char[1024];
+        socket.read(reply, 1024);
+        std::cout << reply << std::endl;
+        delete[] reply;
+    }
+    socket.close();
+
+>>>>>>> e6fbc867e96e718ba5840dbc6dd202a6a4f46459
     return 0;
 }
