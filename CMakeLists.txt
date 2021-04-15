@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 3.10)
-project(AndWeb)
-add_executable(out ang.cpp)
-target_link_libraries(out PUBLIC ${LIB})
-target_include_directories(out PUBLIC "${PROJECT_BINARY_DIR}"  "${PROJECT_SOURCE_DIR/LIB}")
