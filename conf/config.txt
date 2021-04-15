@@ -1,3 +1,3 @@
-host=139.9.202.175
-port=80
-domain=ipv6
+host=localhost
+port=2333
+domain=ipv4

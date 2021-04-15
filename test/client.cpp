@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
-
+#include <typeinfo>
 
 #define MAXBUF 1024
 
@@ -28,22 +28,19 @@ int main(int argc, char **argv)
     bzero(&dest,sizeof(dest));
     dest.sin_family=AF_INET;
     dest.sin_port=htons(atoi(argv[2]));
-    if (inet_aton(argv[1], (struct in_addr *) &dest.sin_addr.s_addr) == 0){
-        std::cout<<"incorrect ip address\n";
-        exit(0);
-    }
-    std::cout<<"server address created successful\n";
+
+    dest.sin_addr.s_addr = inet_addr(argv[1]);
+    std::cout<<"server address created successful\n"<<dest.sin_port<<" "<<dest.sin_addr.s_addr<<std::endl;
     if (connect(sockfd, (struct sockaddr *) &dest, sizeof(dest)) != 0) {
         std::cout<<"connect server fail\n";
         exit(0);
     }
     std::cout<<"connect server successfully\n";
     bzero(buffer,MAXBUF);
-    len=recv(sockfd,buffer,MAXBUF,0);
-    if(len>0){
-        std::cout<<buffer<<std::endl;
-    }
-    bzero(buffer, MAXBUF + 1);
+    // len=recv(sockfd,buffer,MAXBUF,0);
+    // if(len>0){
+    //     std::cout<<buffer<<std::endl;
+    // }
     strcpy(buffer, "这是客户端发给服务器端的消息/n");
     /* 发消息给服务器 */
     len = send(sockfd, buffer, strlen(buffer), 0);

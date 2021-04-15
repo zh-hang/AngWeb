@@ -13,7 +13,7 @@ class ServerSocket
 private:
     int serverfd;
     config host;
-    addrinfo *hostInfo;
+    sockaddr_in hostAddr;
 
 public:
     ServerSocket(config host);

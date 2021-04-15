@@ -4,20 +4,21 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <arpa/inet.h>
+#include <string>
 
 ServerSocket::ServerSocket(config host)
 {
     this->host = host;
-    char *hostStr = new char[this->host.getHost().length()];
-    std::copy(this->host.getHost().begin(), this->host.getHost().end(), hostStr);
-    if (this->hostInfo == nullptr)
-    {
-        std::cout << "no address worked\n";
-        exit(1);
-    }
-
-    getaddrinfo(hostStr, "http", NULL, &this->hostInfo);
-    if ((this->serverfd = socket(this->hostInfo->ai_family, SOCK_STREAM, 0)) == -1)
+    char *hostStr;
+    hostStr = new char[this->host.configData["host"].length()];
+    std::copy(this->host.configData["host"].begin(), this->host.configData["host"].end(), hostStr);
+    std::cout << hostStr << std::endl;
+    this->hostAddr.sin_family = this->host.getDomain();
+    this->hostAddr.sin_addr.s_addr = inet_addr(hostStr);
+    this->hostAddr.sin_port = htons(std::stoi(this->host.configData["port"]));
+    std::cout<<this->hostAddr.sin_port<<" "<<this->hostAddr.sin_addr.s_addr<<std::endl;
+    if ((this->serverfd = socket(this->host.getDomain(), SOCK_STREAM, 0)) == -1)
     {
         std::cout << "socket create fail\n";
         exit(1);
@@ -34,7 +35,7 @@ ServerSocket::~ServerSocket()
 
 void ServerSocket::run()
 {
-    if (bind(this->serverfd, this->hostInfo->ai_addr, this->hostInfo->ai_addrlen) != 0)
+    if (bind(this->serverfd, (struct sockaddr *)&this->hostAddr, sizeof(sockaddr)) != 0)
     {
         std::cout << "socket bind fail\n";
         exit(1);
@@ -44,11 +45,12 @@ void ServerSocket::run()
         std::cout << "close listen\n";
         return;
     }
+    std::cout<<"listening...\n";
     while (1)
     {
         socklen_t clientLen = sizeof(struct sockaddr_storage);
         sockaddr *clientAddr;
         int connfd = accept(this->serverfd, clientAddr, &clientLen);
-        std::cout<<clientAddr->sa_data<<std::endl;
+        std::cout << clientAddr->sa_data << std::endl;
     }
 }

@@ -11,9 +11,9 @@
 class config
 {
     std::string configFilePath;
-    std::map<std::string, std::string> configData;
 
 public:
+    std::map<std::string, std::string> configData;
     config() {}
     config(std::string path)
     {
@@ -21,14 +21,15 @@ public:
         std::ifstream infile;
         infile.open(configFilePath);
         char data[MAXLINE];
-        while (infile.getline (data, MAXLINE))
+        while (infile.getline(data, MAXLINE))
         {
             int i = 0;
             std::string key, value;
             bool flag = true;
             while (data[i])
             {
-                if (data[i] == '='){
+                if (data[i] == '=')
+                {
                     flag = false;
                     i++;
                     continue;
@@ -39,26 +40,21 @@ public:
                     value.push_back(data[i]);
                 i++;
             }
-            std::cout<<key<<":"<<value<<'\n';
+            std::cout << key << ":" << value << '\n';
             configData.insert(std::pair<std::string, std::string>(key, value));
         }
     }
     ~config() {}
-    std::string getHost()
+    int getDomain()
     {
-        return configData.at("host");
-    }
-    std::string getPort()
-    {
-        return configData.at("port");
-    }
-    int getDomain(){
-        if(configData.find("domain")==configData.end()||configData.at("domain")=="ipv4")
+        if (configData.find("domain") == configData.end() || configData.at("domain") == "ipv4")
             return PF_INET;
-        if(configData.at("domain")=="ipv6")
+        if (configData.at("domain") == "ipv6")
             return PF_INET6;
+        return 0;
     }
-    bool empty(){
+    bool empty()
+    {
         return configData.empty();
     }
 };
