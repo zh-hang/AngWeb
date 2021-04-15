@@ -10,16 +10,15 @@
 ServerSocket::ServerSocket(config host)
 {
     this->host = host;
-    char *hostStr;
-    hostStr = new char[this->host.configData["host"].length()];
-    std::copy(this->host.configData["host"].begin(), this->host.configData["host"].end(), hostStr);
-    std::cout << hostStr << std::endl;
+    char const*hostStr=this->host.configData["host"].c_str();
+    std::cout<<hostStr<<std::endl;
     this->hostAddr.sin_family = this->host.getDomain();
     this->hostAddr.sin_addr.s_addr = inet_addr(hostStr);
-    this->hostAddr.sin_port = htons(std::stoi(this->host.configData["port"]));
+    this->hostAddr.sin_port = std::stoi(this->host.configData["port"]);
     std::cout<<this->hostAddr.sin_port<<" "<<this->hostAddr.sin_addr.s_addr<<std::endl;
     if ((this->serverfd = socket(this->host.getDomain(), SOCK_STREAM, 0)) == -1)
     {
+        perror("bind error:");
         std::cout << "socket create fail\n";
         exit(1);
     }
@@ -27,6 +26,9 @@ ServerSocket::ServerSocket(config host)
     {
         std::cout << "socket create success\n";
     }
+    
+    const int on=1;
+    setsockopt(this->serverfd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on));
 }
 
 ServerSocket::~ServerSocket()
@@ -35,7 +37,7 @@ ServerSocket::~ServerSocket()
 
 void ServerSocket::run()
 {
-    if (bind(this->serverfd, (struct sockaddr *)&this->hostAddr, sizeof(sockaddr)) != 0)
+    if (bind(this->serverfd, (struct sockaddr *)&this->hostAddr, sizeof(this->hostAddr)) != 0)
     {
         std::cout << "socket bind fail\n";
         exit(1);
