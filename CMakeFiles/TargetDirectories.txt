@@ -1,6 +1,0 @@
-/mnt/d/mywork/code/AngWeb/CMakeFiles/rebuild_cache.dir
-/mnt/d/mywork/code/AngWeb/CMakeFiles/edit_cache.dir
-/mnt/d/mywork/code/AngWeb/CMakeFiles/out.dir
-/mnt/d/mywork/code/AngWeb/src/CMakeFiles/rebuild_cache.dir
-/mnt/d/mywork/code/AngWeb/src/CMakeFiles/edit_cache.dir
-/mnt/d/mywork/code/AngWeb/src/CMakeFiles/LIB.dir
