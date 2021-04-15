@@ -14,7 +14,7 @@ ServerSocket::ServerSocket(config host)
     std::cout<<hostStr<<std::endl;
     this->hostAddr.sin_family = this->host.getDomain();
     this->hostAddr.sin_addr.s_addr = inet_addr(hostStr);
-    this->hostAddr.sin_port = std::stoi(this->host.configData["port"]);
+    this->hostAddr.sin_port = htons(std::stoi(this->host.configData["port"]));
     std::cout<<this->hostAddr.sin_port<<" "<<this->hostAddr.sin_addr.s_addr<<std::endl;
     if ((this->serverfd = socket(this->host.getDomain(), SOCK_STREAM, 0)) == -1)
     {
