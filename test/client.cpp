@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     std::cout<<"socket created successful\n";
     bzero(&dest,sizeof(dest));
     dest.sin_family=AF_INET;
-    dest.sin_port=htons(atoi(argv[2]));
+    dest.sin_port=atoi(argv[2]);
 
     dest.sin_addr.s_addr = inet_addr(argv[1]);
     std::cout<<"server address created successful\n"<<dest.sin_port<<" "<<dest.sin_addr.s_addr<<std::endl;
