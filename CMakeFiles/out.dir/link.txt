@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/out.dir/ang.cpp.o  -o out  src/libLIB.a 
