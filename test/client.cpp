@@ -20,7 +20,8 @@ int main(int argc, char **argv)
         std::cout << "参数格式错误！正确用法如下：\n\t\t" << argv[0] << " IP地址 端口\n\t" << argv[0] << "127.0.0.1 80\n此程序用来从某个IP地址的服务器某个端口接受最多MAXBUF个字节\n";
         exit(0);
     }
-    if((sockfd=socket(AF_INET,SOCK_STREAM,0)<0)){
+    sockfd=socket(AF_INET,SOCK_STREAM,0);
+    if(sockfd<0)){
         std::cout<<"创建socket失败\n";
         exit(0);
     }
