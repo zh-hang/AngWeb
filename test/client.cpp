@@ -11,7 +11,6 @@
 
 int main(int argc, char **argv)
 {
-<<<<<<< HEAD
     int sockfd, len;
     struct sockaddr_in dest;
     char buffer[MAXBUF];
@@ -27,15 +26,15 @@ int main(int argc, char **argv)
     }
     std::cout<<"socket created successful\n";
     dest.sin_family=AF_INET;
-    dest.sin_port=htons(atoi(argv[2]);
     dest.sin_addr.s_addr = inet_addr(argv[1]);
+    dest.sin_port=htons(atoi(argv[2]));
     bzero(&(dest.sin_zero),8);
-    std::cout<<"server address created successful\n"<<dest.sin_port<<" "<<dest.sin_addr.s_addr<<std::endl;
+    std::cout<<inet_ntoa(dest.sin_addr)<<" "<<std::endl;
     if (connect(sockfd, (struct sockaddr *) &dest, sizeof(struct sockaddr)) != 0) {
         std::cout<<"connect server fail\n";
         exit(0);
     }
     std::cout<<"connect server successfully\n";
-    close(dest);
+    close(sockfd);
     return 0;
 }
