@@ -12,11 +12,10 @@ class ServerSocket
 {
 private:
     int serverfd;
-    config host;
     sockaddr_in hostAddr;
 
 public:
-    ServerSocket(config host);
+    ServerSocket(const std::string host,const unsigned int port,const int domain_type);
     ~ServerSocket();
     void run();
 };
