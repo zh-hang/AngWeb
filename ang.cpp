@@ -6,18 +6,20 @@
 
 static const std::string configFile = "../conf/config.txt";
 
-void runIPv4(config host)
-{
-}
-
 int main(int argc, char *argv[])
 {
-    config host(configFile);
-    if (argc == 2)
+    config host;
+
+    switch (argc)
+    {
+    case 1:
+        host = config(configFile);
+        break;
+    case 2:
     {
         try
         {
-            host.setDomain(std::string(argv[1]));
+            host = config(configFile, std::string(argv[1]));
         }
         catch (const std::exception &e)
         {
@@ -25,8 +27,8 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-    else if (argc > 2)
-    {
+    break;
+    default:
         std::cout << "unrecognized parameters:";
         for (int i = 2; i < argc; i++)
         {
@@ -34,6 +36,7 @@ int main(int argc, char *argv[])
         }
         return 0;
     }
+
     if (host.getDomain() == AF_INET)
     {
         ServerSocket server(host.getHost().c_str(), host.getPort());
@@ -44,5 +47,6 @@ int main(int argc, char *argv[])
         ServerSocket6 server(host.getHost().c_str(), host.getPort());
         server.run();
     }
+
     return 0;
 }
