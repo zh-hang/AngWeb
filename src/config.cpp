@@ -2,10 +2,6 @@
 
 config::config(std::string path, std::string domain)
 {
-    if (domain == "ipv4" || domain == "ipv6")
-        this->configData["domain"] = domain;
-    else
-        throw "illegal domain input.\n";
     configFilePath = path;
     std::ifstream infile;
     infile.open(configFilePath);
@@ -29,8 +25,22 @@ config::config(std::string path, std::string domain)
                 value.push_back(data[i]);
             i++;
         }
+        if (key == "doamin")
+            continue;
         std::cout << key << ":" << value << '\n';
         configData.insert({key, value});
+    }
+    if (configData.find("domain") == configData.end())
+    {
+        this->configData.insert({"domain", "ipv4"});
+    }
+    if (domain == "ipv4" || domain == "ipv6")
+    {
+        this->configData["domain"] = domain;
+    }
+    else
+    {
+        std::cout << "unrecognized domain. has been set to ipv4\n";
     }
 }
 
@@ -66,5 +76,6 @@ config::config(std::string path)
     if (configData.find("domain") == configData.end())
     {
         this->configData.insert({"domain", "ipv4"});
+        std::cout << "domain:ipv4\n";
     }
 }

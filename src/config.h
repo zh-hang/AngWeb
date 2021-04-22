@@ -33,32 +33,44 @@ public:
     void setDomain(std::string domain)
     {
         if (domain == "ipv4" || domain == "ipv6")
+        {
             this->configData["domain"] = domain;
+        }
         else
-            throw "illegal domain input.\n";
+        {
+            this->configData["domain"] = "ipv4";
+            std::cout << "unrecognized domain. has been set to ipv4\n";
+        }
     }
 
     void setDomain(int domain)
     {
         if (domain == AF_INET)
-            this->configData["domain"] == "ipv4";
-        else if (domain = AF_INET6)
-            this->configData["domain"] == "ipv6";
+        {
+            this->configData["domain"] = "ipv4";
+        }
+        else if (domain == AF_INET6)
+        {
+            this->configData["domain"] = "ipv6";
+        }
         else
-            throw "illegal domain input.\n";
+        {
+            this->configData["domain"] = "ipv4";
+            std::cout << "unrecognized domain. has been set to ipv4\n";
+        }
     }
 
     int getDomain()
     {
-        if (configData.at("domain") == "ipv4")
+        if (this->configData.at("domain") == "ipv4")
             return AF_INET;
-        if (configData.at("domain") == "ipv6")
+        if (this->configData.at("domain") == "ipv6")
             return AF_INET6;
         return 0;
     }
     bool empty()
     {
-        return configData.empty();
+        return this->configData.empty();
     }
 };
 
