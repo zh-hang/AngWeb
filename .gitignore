@@ -3,7 +3,7 @@ build/*
 CMakeFiles/
 
 
-config.txt
+**/config.txt
 *.cmake
 **/CMakeCache.txt
 **/Makefile
