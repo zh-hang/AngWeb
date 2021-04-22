@@ -16,7 +16,7 @@ ServerSocket::ServerSocket(char const *host_str, const unsigned int port)
         std::cout << "socket create fail\n";
         exit(-1);
     }
-    std::cout << "socket create success\n";
+    std::cout << "socket create success\n"<<"socket id:"<<this->serverfd<<std::endl;
 
     this->host_addr.sin_family = AF_INET;
     this->host_addr.sin_addr.s_addr = inet_addr(host_str);
@@ -59,13 +59,15 @@ ServerSocket6::ServerSocket6(char const *host_str, const unsigned int port)
         std::cout << "socket create fail\n";
         exit(-1);
     }
-    std::cout << "socket create success\n";
+    std::cout << "socket create success\n"<<"socket id:"<<this->serverfd<<std::endl;
+    bzero(&this->host_addr,sizeof(sockaddr_in6));
     this->host_addr.sin6_family=AF_INET6;
     this->host_addr.sin6_port=htons(port);
-    if(inet_pton(AF_INET6, host_str, &(this->host_addr.sin6_addr))<0){
-        std::cout<<"address create fail\n";
-        exit(-1);
-    }
+    // if(inet_pton(AF_INET6, host_str, &(this->host_addr))<0){
+    //     std::cout<<"address create fail\n";
+    //     exit(-1);
+    // }
+    this->host_addr.sin6_addr=in6addr_any;
     std::cout << "address create successfully\n";
 }
 
@@ -74,10 +76,11 @@ ServerSocket6::~ServerSocket6()
 }
 
 void ServerSocket6::run(){
-    if(bind(this->serverfd,(sockaddr*)&this->host_addr,sizeof(sockaddr_in6))==-1){
+    if (bind(this->serverfd, (sockaddr *) &this->host_addr, sizeof(sockaddr_in6))== -1) {
         std::cout<<"socket bind fail\n";
         exit(-1);
     }
+    std::cout<<"bind successfully\n";
     if(listen(this->serverfd,MAX_LISTEN_NUM)<0){
         std::cout<<"listen fail\n";
         exit(-1);
