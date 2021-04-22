@@ -16,7 +16,7 @@ private:
     sockaddr_in host_addr;
 
 public:
-    ServerSocket(char const* host_str, const unsigned int port, const int domain_type);
+    ServerSocket(char const* host_str, const unsigned int port);
     ~ServerSocket();
     void run();
 };
@@ -28,7 +28,7 @@ private:
     sockaddr_in6 host_addr;
 
 public:
-    ServerSocket6(char const* host_str, const unsigned int port, const int domain_type);
+    ServerSocket6(char const* host_str, const unsigned int port);
     ~ServerSocket6();
     void run();
 };
