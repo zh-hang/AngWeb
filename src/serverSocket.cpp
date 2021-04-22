@@ -72,7 +72,7 @@ ServerSocket6::~ServerSocket6()
 }
 
 void ServerSocket6::run(){
-    if(bind(this->serverfd,(sockaddr*)&this->host_addr,sizeof(sockaddr_in6)==_1)){
+    if(bind(this->serverfd,(sockaddr*)&this->host_addr,sizeof(sockaddr_in6))==-1){
         std::cout<<"socket bind fail\n";
         exit(-1);
     }
