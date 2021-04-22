@@ -30,16 +30,13 @@ config::config(std::string path, std::string domain)
         std::cout << key << ":" << value << '\n';
         configData.insert({key, value});
     }
-    if (configData.find("domain") == configData.end())
-    {
-        this->configData.insert({"domain", "ipv4"});
-    }
     if (domain == "ipv4" || domain == "ipv6")
     {
-        this->configData["domain"] = domain;
+        this->configData.insert({"domain",domain});
     }
     else
     {
+        this->configData.insert({"domain","ipv4"});
         std::cout << "unrecognized domain. has been set to ipv4\n";
     }
 }
