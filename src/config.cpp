@@ -32,7 +32,6 @@ config::config(std::string path, std::string domain)
         std::cout << key << ":" << value << '\n';
         configData.insert({key, value});
     }
-    configData.insert({"domain", domain});
 }
 
 config::config(std::string path)
