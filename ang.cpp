@@ -9,7 +9,7 @@ static const std::string configFile="../conf/config.txt";
 int main(argv[]){
     config host(configFile);
     
-    ServerSocket server(host.getHost(),host.getPort(),host.getDomain());
+    ServerSocket server(host.getHost().c_str(),host.getPort(),host.getDomain());
     server.run();
     return 0;
 }

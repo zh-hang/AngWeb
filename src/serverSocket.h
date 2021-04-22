@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <netinet/in.h>
 #include "config.h"
 
 #define MAX_LISTEN_NUM 256
@@ -12,11 +13,23 @@ class ServerSocket
 {
 private:
     int serverfd;
-    sockaddr_in hostAddr;
+    sockaddr_in host_addr;
 
 public:
-    ServerSocket(const std::string host,const unsigned int port,const int domain_type);
+    ServerSocket(char const* host_str, const unsigned int port, const int domain_type);
     ~ServerSocket();
+    void run();
+};
+
+class ServerSocket6
+{
+private:
+    int serverfd;
+    sockaddr_in6 host_addr;
+
+public:
+    ServerSocket6(char const* host_str, const unsigned int port, const int domain_type);
+    ~ServerSocket6();
     void run();
 };
 

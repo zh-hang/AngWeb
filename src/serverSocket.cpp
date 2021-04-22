@@ -8,14 +8,13 @@
 #include <string>
 #include <string.h>
 
-ServerSocket::ServerSocket(const std::string host,const unsigned int port,const int domain_type)
+ServerSocket::ServerSocket(char const* host_str,const unsigned int port,const int domain_type)
 {
-    char const*hostStr=host.c_str();
-    this->hostAddr.sin_family = domain_type;
-    this->hostAddr.sin_addr.s_addr = inet_addr(hostStr);
-    this->hostAddr.sin_port = htons(port);
-    bzero(&(this->hostAddr.sin_zero),8);
-    std::cout<<inet_ntoa(this->hostAddr.sin_addr)<<" "<<std::endl;
+    this->host_addr.sin_family = domain_type;
+    this->host_addr.sin_addr.s_addr = inet_addr(host_str);
+    this->host_addr.sin_port = htons(port);
+    bzero(&(this->host_addr.sin_zero),8);
+    std::cout<<inet_ntoa(this->host_addr.sin_addr)<<" "<<std::endl;
     if ((this->serverfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     {
         perror("bind error:");
@@ -26,9 +25,6 @@ ServerSocket::ServerSocket(const std::string host,const unsigned int port,const 
     {
         std::cout << "socket create success\n";
     }
-    
-    // const int on=1;
-    // setsockopt(this->serverfd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on));
 }
 
 ServerSocket::~ServerSocket()
@@ -37,7 +33,7 @@ ServerSocket::~ServerSocket()
 
 void ServerSocket::run()
 {
-    if (bind(this->serverfd, (struct sockaddr *)&this->hostAddr, sizeof(struct sockaddr)) != 0)
+    if (bind(this->serverfd, (struct sockaddr *)&this->host_addr, sizeof(struct sockaddr)) != 0)
     {
         std::cout << "socket bind fail\n";
         exit(1);
@@ -50,9 +46,19 @@ void ServerSocket::run()
     std::cout<<"listening...\n";
     while (1)
     {
-        socklen_t clientLen = sizeof(struct sockaddr_storage);
-        sockaddr *clientAddr;
-        int connfd = accept(this->serverfd, clientAddr, &clientLen);
-        std::cout << clientAddr->sa_data << std::endl;
+        socklen_t client_len = sizeof(struct sockaddr_storage);
+        sockaddr *client_addr;
+        int connfd = accept(this->serverfd, client_addr, &client_len);
+        std::cout << client_addr->sa_data << std::endl;
     }
+}
+
+
+ServerSocket6::ServerSocket6(char const* host_str, const unsigned int port, const int domain_type)
+{
+    this.
+}
+
+ServerSocket6::~ServerSocket6()
+{
 }
