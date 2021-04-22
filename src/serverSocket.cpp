@@ -22,7 +22,7 @@ ServerSocket::ServerSocket(char const *host_str, const unsigned int port)
     this->host_addr.sin_addr.s_addr = inet_addr(host_str);
     this->host_addr.sin_port = htons(port);
     bzero(&(this->host_addr.sin_zero), 8);
-    std::cout << inet_ntoa(this->host_addr.sin_addr) << " " << std::endl;
+    std::cout << "address create successfully\n";
 }
 
 ServerSocket::~ServerSocket()
@@ -62,9 +62,11 @@ ServerSocket6::ServerSocket6(char const *host_str, const unsigned int port)
     std::cout << "socket create success\n";
     this->host_addr.sin6_family=AF_INET6;
     this->host_addr.sin6_port=htons(port);
-    inet_pton(AF_INET6, host_str, &(this->host_addr.sin6_addr));
-    char *str;
-    std::cout << inet_ntop(AF_INET6,&(this->host_addr.sin6_addr),str,sizeof(this->host_addr.sin6_addr)) << " " << std::endl;
+    if(inet_pton(AF_INET6, host_str, &(this->host_addr.sin6_addr))<0){
+        std::cout<<"address create fail\n";
+        exit(-1);
+    }
+    std::cout << "address create successfully\n";
 }
 
 ServerSocket6::~ServerSocket6()
