@@ -21,7 +21,7 @@ int main(int argc, char **argv)
         exit(0);
     }
     sockfd=socket(AF_INET,SOCK_STREAM,0);
-    if(sockfd<0)){
+    if(sockfd<0){
         std::cout<<"创建socket失败\n";
         exit(0);
     }
