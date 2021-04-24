@@ -11,10 +11,10 @@ set(CMAKE_CXX_STANDARD 11)
 #include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # add the executable
-add_executable(out ang.cpp)
+add_executable(server ang.cpp)
 
 
 # include file path
 add_subdirectory(src)
-target_link_libraries(out PUBLIC LIB)
-target_include_directories(out PUBLIC "${PROJECT_BINARY_DIR}"  "${PROJECT_SOURCE_DIR/src}")
+target_link_libraries(server PUBLIC LIB)
+target_include_directories(server PUBLIC "${PROJECT_BINARY_DIR}"  "${PROJECT_SOURCE_DIR/src}")

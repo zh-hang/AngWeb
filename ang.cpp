@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     case 1:
         host = config(configFile);
         break;
-    case 2:
+    case 4:
     {
         try
         {
-            host = config(configFile, std::string(argv[1]));
+            host = config(std::string(argv[1]),std::string(argv[2]) ,std::string(argv[3]));
         }
         catch (const std::exception &e)
         {
@@ -30,10 +30,11 @@ int main(int argc, char *argv[])
     break;
     default:
         std::cout << "unrecognized parameters:";
-        for (int i = 2; i < argc; i++)
+        for (int i = 1; i < argc; i++)
         {
             std::cout << "" << argv[i];
         }
+        std::cout<<"\nplease input as ./server host port domain\n";
         return 0;
     }
 
