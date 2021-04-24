@@ -5,3 +5,11 @@ CMakeFiles/
 *.cmake
 **/CMakeCache.txt
 **/Makefile
+/.idea/.gitignore
+/.idea/.name
+/AndWeb.cbp
+/.idea/AngWeb.iml
+/Testing/Temporary/LastTest.log
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
