@@ -6,10 +6,16 @@
 
 static const std::string configFile = "../conf/config.txt";
 
+
+
 int main(int argc, char *argv[])
 {
     config host;
-
+    ServerSocket6 test("","2333");
+    if(true) {
+        test.run();
+        return 1;
+    }
     switch (argc)
     {
     case 1:
@@ -40,12 +46,12 @@ int main(int argc, char *argv[])
 
     if (host.getDomain() == AF_INET)
     {
-        ServerSocket server(host.getHost().c_str(), host.getPort());
+        ServerSocket server(host.getHost().c_str(), host.getPortStr().c_str());
         server.run();
     }
     else if (host.getDomain() == AF_INET6)
     {
-        ServerSocket6 server(host.getHost().c_str(), host.getPort());
+        ServerSocket6 server(host.getHost().c_str(), host.getPortStr().c_str());
         server.run();
     }
 

@@ -25,9 +25,13 @@ public:
         return this->config_data["host"];
     }
 
-    int getPort()
+    int getPortINT()
     {
         return std::stoi(this->config_data["port"]);
+    }
+
+    std::string getPortStr(){
+        return this->config_data["port"];
     }
 
     void setDomain(std::string domain)
