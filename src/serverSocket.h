@@ -8,29 +8,32 @@
 #include "config.h"
 
 #define MAX_LISTEN_NUM 256
+#define MAX_BUF 1024
 
 class ServerSocket
 {
 private:
     int serverfd;
-    sockaddr_in host_addr;
+    sockaddr_in host_addr{};
 
 public:
     ServerSocket(char const* host_str, char const *port);
     ~ServerSocket();
-    void run();
+
+    [[noreturn]] void run();
 };
 
 class ServerSocket6
 {
 private:
     int serverfd;
-    sockaddr_in6 host_addr;
+    sockaddr_in6 host_addr{};
 
 public:
     ServerSocket6(char const* host_str, char const *port);
     ~ServerSocket6();
-    void run();
+
+    [[noreturn]] void run();
 };
 
 #endif

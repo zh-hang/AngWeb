@@ -11,11 +11,6 @@ static const std::string configFile = "../conf/config.txt";
 int main(int argc, char *argv[])
 {
     config host;
-    ServerSocket6 test("","2333");
-    if(true) {
-        test.run();
-        return 1;
-    }
     switch (argc)
     {
     case 1:
