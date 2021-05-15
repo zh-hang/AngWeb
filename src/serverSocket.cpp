@@ -14,8 +14,8 @@ ServerSocket::ServerSocket(char const *host_str, char const *port) {
     hint.ai_flags = AI_PASSIVE;
     hint.ai_socktype = SOCK_STREAM;
     hint.ai_family = AF_INET;
-//    if (getaddrinfo(host_str, port, &hint, &res) != 0) {
-    if (getaddrinfo(NULL, port, &hint, &res) != 0) {
+    if (getaddrinfo(host_str, port, &hint, &res) != 0) {
+//    if (getaddrinfo(NULL, port, &hint, &res) != 0) {
         std::cerr << "get address information fail\n";
         exit(errno);
     }
@@ -74,8 +74,8 @@ ServerSocket6::ServerSocket6(char const *host_str, char const *port) {
     hint.ai_flags = AI_PASSIVE;
     hint.ai_socktype = SOCK_STREAM;
     hint.ai_family = AF_INET6;
-//    if (getaddrinfo(host_str, port, &hint, &res) != 0) {
-    if (getaddrinfo(NULL, port, &hint, &res) != 0) {
+    if (getaddrinfo(host_str, port, &hint, &res) != 0) {
+//    if (getaddrinfo(NULL, port, &hint, &res) != 0) {
         std::cerr << "get address information fail\n";
         exit(errno);
     }
