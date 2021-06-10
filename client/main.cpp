@@ -25,6 +25,8 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
+    std::cout<<argv[1]<<std::endl;
+
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_ADDRCONFIG;
@@ -34,6 +36,7 @@ int main(int argc, char **argv) {
     if (strcmp(argv[3],"ipv6") == 0) {
         std::cout<<"by ipv6\n";
         hints.ai_family = AF_INET6;
+        hints.ai_flags=AI_V4MAPPED | AI_ALL;
         stat = getaddrinfo(argv[1], argv[2], &hints, &result);
         if (stat != 0) {
             std::cerr << "get address information fail\n";
